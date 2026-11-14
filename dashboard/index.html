@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Token Launch Radar — pre-token protocols ranked by implied value</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="eyebrow">Token Launch Radar</p>
+    <h1>Which protocol launches the next valuable token?</h1>
+    <p class="lede">A radar over the protocols that record no token yet, ranked by what their
+    token would be worth if it traded at the multiple the market already pays
+    for live tokens. The value is this radar's claim, never a prediction that
+    a token will be issued, or when.</p>
+    <p class="snapshot-line" id="snapshot-line">Snapshot loading…</p>
+  </div>
+</header>
+
+<main>
+  <section class="stats" id="stats" aria-label="Snapshot totals"></section>
+
+  <nav class="tabs" aria-label="Views">
+    <button type="button" class="tab active" data-view="board">Board</button>
+    <button type="button" class="tab" data-view="live">Live tokens, set aside</button>
+  </nav>
+
+  <section class="controls" id="board-controls">
+    <label class="field">Search
+      <input type="search" id="query" placeholder="Protocol name or slug…" autocomplete="off">
+    </label>
+    <label class="field">Category
+      <select id="category"><option value="all">All categories</option></select>
+    </label>
+    <label class="field">Sort by
+      <select id="sort">
+        <option value="rank">Rank (implied value)</option>
+        <option value="tvl">TVL, high to low</option>
+        <option value="growth">7-day growth, high to low</option>
+        <option value="age">Age, oldest first</option>
+      </select>
+    </label>
+  </section>
+
+  <section class="card table-card">
+    <div class="table-wrap">
+      <table id="board-table">
+        <thead>
+          <tr>
+            <th class="num">Rank</th>
+            <th>Protocol</th>
+            <th>Category</th>
+            <th>Chains</th>
+            <th class="num">TVL</th>
+            <th class="num">7d</th>
+            <th class="num">Age</th>
+            <th class="num">Implied value</th>
+          </tr>
+        </thead>
+        <tbody id="board-body"></tbody>
+      </table>
+    </div>
+    <p class="empty" id="empty-note" hidden>No protocol matches this filter.</p>
+    <div class="pager" id="pager">
+      <button type="button" id="prev-page">← Previous</button>
+      <span id="page-info"></span>
+      <button type="button" id="next-page">Next →</button>
+    </div>
+  </section>
+
+  <section class="card model-card" id="model-card">
+    <h2>How the radar scores</h2>
+    <p class="formula">implied value = TVL &times; market multiple &times; growth factor &times; age factor</p>
+    <ul class="model-points" id="model-points"></ul>
+    <p class="model-note">The multiple is the market's own: the median market-cap / TVL of the
+    live-token protocols in this snapshot, per category where that category has
+    at least three traded peers, shrunk toward the market-wide median. Growth
+    is the 7-day TVL change, clamped to &minus;50%…+100%. Age is how long the
+    protocol has run with no token. No protocol name is ever special-cased.</p>
+  </section>
+
+  <section class="card detail-card" id="detail-card" hidden>
+    <div class="detail-head">
+      <div>
+        <p class="eyebrow" id="detail-eyebrow"></p>
+        <h2 id="detail-name"></h2>
+        <p class="detail-sub" id="detail-sub"></p>
+      </div>
+      <button type="button" id="detail-close">Close ×</button>
+    </div>
+    <div class="detail-grid" id="detail-grid"></div>
+    <h3>Why this value</h3>
+    <table class="breakdown" id="breakdown-table">
+      <thead><tr><th>Step</th><th class="num">Figure</th></tr></thead>
+      <tbody id="breakdown-body"></tbody>
+    </table>
+    <h3>How to farm it</h3>
+    <ol class="farm-steps" id="farm-steps"></ol>
+    <p class="farm-note">Farming never guarantees an airdrop. Only use funds you can leave in
+    place, verify every link on the protocol's own site, and never pay anyone
+    to claim.</p>
+  </section>
+
+  <section class="card live-card" id="live-card" hidden>
+    <h2>Live tokens, set aside</h2>
+    <p>These protocols already have a token that trades. The board shows them at
+    the market's own value and never ranks them against the pre-token board.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Protocol</th><th>Category</th><th>Chains</th><th class="num">TVL</th><th class="num">Market cap</th><th class="num">7d</th></tr>
+        </thead>
+        <tbody id="live-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card method-card">
+    <h2>Reading the board</h2>
+    <ul>
+      <li><strong>Rank 1 is the most valuable claim</strong>, not the biggest TVL: a smaller protocol growing fast can outrank a larger flat one.</li>
+      <li><strong>“Records no token” is what the snapshot says</strong>, not proof a protocol has none: a protocol on the list may still have a token its record does not carry.</li>
+      <li><strong>The watchlist is a floor, never a ceiling.</strong> The board carries all 40 watchlist protocols plus every other pre-token protocol the snapshot ranks, down to the smallest.</li>
+      <li><strong>Farm steps are a starting plan</strong>, costed in dollars and days, built from each protocol's own category, chain, size and age — not a promise of a reward.</li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <p>Token Launch Radar · model radar-2 · snapshot: DefiLlama protocols, fetched 2026-11-14 · Implied values are this entry's own model output.</p>
+</footer>
+
+<script src="../data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
